@@ -6,6 +6,9 @@ const express = require("express"),
   jwt = require("jsonwebtoken"),
   expired = process.env.JWT_EXPIRE,
   signature = process.env.JWT_SECRET,
+  swaggerUI = require('swagger-ui-express'),
+  openApiDoc = require('./openApiDoc'),
+  router = express.Router(),
   { auth } = require("./middleware/Auth");
 moment = require("moment");
 
@@ -17,7 +20,8 @@ app.use(cors());
 /*
     domain login
 */
-app.post("/login", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
+  console.log("wkwkwk")
   const { username, password } = req.body;
   const getUser = await model.Users.findOne({ username: username }).clone();
 
@@ -64,7 +68,7 @@ app.post("/login", async (req, res, next) => {
 /*
     domain register
 */
-app.post("/register", async (req, res, next) => {
+router.post("/register", async (req, res, next) => {
   const { username, password, fullname } = req.body;
   const hashPassword = bcrypt.hashSync(password, 10);
 
@@ -90,8 +94,8 @@ app.post("/register", async (req, res, next) => {
           });
         });
       } else {
-        res.status(400).json({
-          success: true,
+        res.status(200).json({
+          success: false,
           message: "user already exist",
         });
       }
@@ -103,7 +107,7 @@ app.post("/register", async (req, res, next) => {
 /*
     domain statistik
 */
-app.get("/statistik", async (req, res, next) => {
+router.get("/statistik", async (req, res, next) => {
   const getUsers = await model.Users.find({}).clone();
   let data = getUsers.map((user) => {
     return {
@@ -129,7 +133,7 @@ app.get("/statistik", async (req, res, next) => {
 /*
     domain logout
 */
-app.post("/logout", auth, async (req, res, next) => {
+router.post("/logout", auth, async (req, res, next) => {
   const { _id } = req.user;
   await model.Users.updateOne(
     { _id: _id },
@@ -140,7 +144,13 @@ app.post("/logout", auth, async (req, res, next) => {
     message: "success logout",
   });
 });
-
+app.use("/api/v1",router)
+app.use("/api-docs",
+        swaggerUI.serve,
+        swaggerUI.setup(openApiDoc.default(),{
+          swaggerOptions: { filter: true, persistAuthorization: true }
+        })
+  )
 app.get("*", (req, res, next) => {
   res.status(200).json({
     message: "Service On",
