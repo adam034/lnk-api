@@ -18,4 +18,4 @@ Setelah package selesai terinstall, jalankan perintah `yarn start:prod ` untuk m
 
 ### `4 Akses API`
 
-Setelah itu, API bisa diakses melalui `http://localhost:3001`. Untuk documentasi API, bisa diakses disini `http://localhost:3000/api-docs`
+Setelah itu, API bisa diakses melalui `http://localhost:3001`. Untuk documentasi API, bisa diakses disini `http://localhost:3001/api-docs`
