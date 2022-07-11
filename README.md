@@ -6,7 +6,7 @@
 
 ### `1. Clone project`
 
-Clone project dari repository terlebih dahulu dengan perintah `git clone`. Untuk mode `https`, gunakan perintah `git clone https://github.com/adam034/lnk-api.git`. Sedangkan untuk mode `ssh`, gunakan perintah `git clone git@github.com:adam034/lnk-api.git`. Setelah itu, buat file `.env` pada root directori, dan copy kan isi dari file `.env.example` ke file `.env`
+Clone project dari repository terlebih dahulu dengan perintah `git clone`. Untuk mode `https`, gunakan perintah `git clone https://github.com/adam034/api-pt-lnk.git`. Sedangkan untuk mode `ssh`, gunakan perintah `git clone git@github.com:adam034/api-pt-lnk.git`. Setelah itu, buat file `.env` pada root directori, dan copy kan isi dari file `.env.example` ke file `.env`
 
 ### `2. Install package`
 
